@@ -22,6 +22,8 @@
     <string name="forth_label">Settings</string>
     <string name="title_activity_test">TestActivity</string>
 
+    <string name="map_box_token">pk.eyJ1IjoidGVtYTc3MDciLCJhIjoiY2piZG40NnNuMWN4aDJxbm9iZDdoeG1xdSJ9.W5GnHnCjwTaJLH4ZN7SDag</string>
+
     <!--Links of images-->
     <string name="sberbankLogoLink">https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/sberbank.png</string>
     <string name="cafeLogoLink">https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/cafe.png</string>

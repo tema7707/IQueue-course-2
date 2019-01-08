@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.mapbox.mapboxsdk.Mapbox;
+
 public class MainViewer extends AppCompatActivity {
 
     TextView title;

@@ -1,16 +1,15 @@
 package apshirokov.cs.hse.iqueue;
 
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.maps.MapView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +17,8 @@ public class ChooseBranchFragment extends Fragment {
 
     private List<BranchListElement> elements = new ArrayList();
     ListView elementsList;
+    // MapBox
+    private MapView mapView;
 
     public ChooseBranchFragment() { }
 
@@ -28,8 +29,9 @@ public class ChooseBranchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_choose_branch, container, false);
 
+        Mapbox.getInstance(getContext(), getString(R.string.map_box_token));
+        final View view = inflater.inflate(R.layout.fragment_choose_branch, container, false);
         // начальная инициализация списка
         setInitialData();
         // получаем элемент ListView
@@ -39,6 +41,10 @@ public class ChooseBranchFragment extends Fragment {
                 R.layout.form_branch_list_element, elements);
         // устанавливаем адаптер
         elementsList.setAdapter(branchAdapter);
+
+        // Карта
+        mapView = view.findViewById(R.id.mapChooseBranch);
+        mapView.onCreate(savedInstanceState);
 
         return view;
     }
