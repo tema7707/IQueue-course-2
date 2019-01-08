@@ -30,7 +30,7 @@ public class MainViewer extends AppCompatActivity {
                     return true;
                 case R.id.add_new:
                     loadFragment(ChooseCompanyFragment.newInstance());
-                    title.setText("Add Note");
+                    title.setText("Add New Note");
                     return true;
                 case R.id.companies:
                     loadFragment(MyNotesFragment.newInstance());

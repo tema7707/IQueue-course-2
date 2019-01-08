@@ -22,12 +22,12 @@
             android:orientation="vertical"
             android:paddingRight="5dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/logoCompany1"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
-                app:srcCompat="@color/colorPrimaryDark" />
+                android:layout_gravity="center"
+                app:srcCompat="@color/colorPrimaryDark"/>
 
             <TextView
                 android:id="@+id/nameCompany1"
@@ -50,12 +50,12 @@
             android:orientation="vertical"
             android:paddingLeft="5dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/logoCompany2"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
-                app:srcCompat="@color/colorPrimaryDark" />
+                android:layout_gravity="center"
+                app:srcCompat="@color/colorPrimaryDark"/>
 
             <TextView
                 android:id="@+id/nameCompany2"

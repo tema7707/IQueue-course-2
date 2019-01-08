@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class ChooseCompanyAdapter extends ArrayAdapter<ChooseCompany> {
@@ -42,9 +44,17 @@ public class ChooseCompanyAdapter extends ArrayAdapter<ChooseCompany> {
 
         final ChooseCompany company = companies.get(position);
         // TODO:: picasso
-        logoView1.setImageResource(R.drawable.sberbank);
+
+        Picasso.get()
+                .load(company.getLogoURL1())
+                .error(R.drawable.logo)
+                .into(logoView1);
+
         if (!company.getCompanyName2().equals(""))
-            logoView2.setImageResource(R.drawable.sberbank);
+            Picasso.get()
+                    .load(company.getLogoURL2())
+                    .error(R.drawable.logo)
+                    .into(logoView2);
 
         nameView1.setText(company.getCompanyName1());
         nameView2.setText(company.getCompanyName2());
@@ -94,6 +104,13 @@ public class ChooseCompanyAdapter extends ArrayAdapter<ChooseCompany> {
             MainViewer.singleMainViewr().title.setText(number == 1 ? company.getCompanyName1() :
                     company.getCompanyName2());
             MainViewer.singleMainViewr().loadFragment(ChooseBranchFragment.newInstance());
+
+            // Меняем верхнее лого
+            ImageView titleLogo = MainViewer.singleMainViewr().findViewById(R.id.titleLogo);
+            Picasso.get()
+                    .load(number == 1 ? company.getLogoURL1() : company.getLogoURL2())
+                    .error(R.drawable.logo)
+                    .into(titleLogo);
         }
 
         @Override

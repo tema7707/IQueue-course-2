@@ -42,17 +42,13 @@ public class ChooseCompanyFragment extends Fragment {
     }
 
     private void setInitialData(){
+        companies.add(new ChooseCompany ("Sberbank", getString(R.string.sberbankLogoLink),
+                "Hookah", getString(R.string.hookahplaceLogoLink)));
+        companies.add(new ChooseCompany ("Pizza", getString(R.string.pizzaLogoLink),
+                "Cafe", getString(R.string.cafeLogoLink)));
+        companies.add(new ChooseCompany ("Post", getString(R.string.postLogoLink),
+                "Tinkoff", getString(R.string.tinkoffLogoLink)));
+        companies.add(new ChooseCompany ("Documents", getString(R.string.mfcLogoLink)));
 
-        try {
-            companies.add(new ChooseCompany ("Sberbank", new URL("http://example.com/"),
-                    "Hookah", new URL("http://example.com/")));
-            companies.add(new ChooseCompany ("Post", new URL("http://example.com/"),
-                    "Cafe", new URL("http://example.com/")));
-            companies.add(new ChooseCompany ("Pizza", new URL("http://example.com/"),
-                    "Tinkoff", new URL("http://example.com/")));
-            companies.add(new ChooseCompany ("Pizza", new URL("http://example.com/")));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
     }
 }

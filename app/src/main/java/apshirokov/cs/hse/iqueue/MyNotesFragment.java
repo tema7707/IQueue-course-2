@@ -42,12 +42,8 @@ public class MyNotesFragment extends Fragment {
 
     private void setInitialData(){
         //TODO:: переделать для сервера
-        try {
-            notes.add(new Note("Sberbank", "420 Paper St", new Date(), new URL("http://example.com/")));
-            notes.add(new Note("Rosbank", "3th Microraion d.48-a", new Date(), new URL("http://example.com/")));
-            notes.add(new Note("Hospital", "Microraion Zelenyi d.15", new Date(), new URL("http://example.com/")));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        notes.add(new Note("Sberbank", "420 Paper St", new Date(), getString(R.string.sberbankLogoLink)));
+        notes.add(new Note("Hookah Place", "420 Paper St", new Date(), getString(R.string.hookahplaceLogoLink)));
+        notes.add(new Note("Cafe", "420 Paper St", new Date(), getString(R.string.cafeLogoLink)));
     }
 }

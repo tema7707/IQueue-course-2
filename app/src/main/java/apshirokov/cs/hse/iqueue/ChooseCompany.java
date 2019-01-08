@@ -5,9 +5,9 @@ import java.net.URL;
 public class ChooseCompany {
 
     private String companyName1, companyName2;
-    private URL logoURL1, logoURL2;
+    private String logoURL1, logoURL2;
 
-    public ChooseCompany(String companyName, URL logoURL){
+    public ChooseCompany(String companyName, String logoURL){
         this.companyName1 = companyName;
         this.logoURL1 = logoURL;
         // empty
@@ -15,7 +15,7 @@ public class ChooseCompany {
         this.logoURL2 = null;
     }
 
-    public ChooseCompany(String companyName, URL logoURL, String companyName2, URL logoURL2){
+    public ChooseCompany(String companyName, String logoURL, String companyName2, String logoURL2){
         this.companyName1 = companyName;
         this.logoURL1 = logoURL;
         this.companyName2 = companyName2;
@@ -26,7 +26,7 @@ public class ChooseCompany {
         return companyName1;
     }
 
-    public URL getLogoURL1() {
+    public String getLogoURL1() {
         return logoURL1;
     }
 
@@ -34,7 +34,7 @@ public class ChooseCompany {
         return companyName2;
     }
 
-    public URL getLogoURL2() {
+    public String getLogoURL2() {
         return logoURL2;
     }
 }

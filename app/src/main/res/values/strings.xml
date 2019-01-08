@@ -21,4 +21,13 @@
     <string name="third_label">Search</string>
     <string name="forth_label">Settings</string>
     <string name="title_activity_test">TestActivity</string>
+
+    <!--Links of images-->
+    <string name="sberbankLogoLink">https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/sberbank.png</string>
+    <string name="cafeLogoLink">https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/cafe.png</string>
+    <string name="pizzaLogoLink">https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/pizza.png</string>
+    <string name="hookahplaceLogoLink">https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/hookhaplace.png</string>
+    <string name="mfcLogoLink">https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/mfc.png</string>
+    <string name="tinkoffLogoLink">https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/tinkoff.png</string>
+    <string name="postLogoLink">https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/post.png</string>
 </resources>

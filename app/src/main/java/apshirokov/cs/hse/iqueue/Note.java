@@ -8,9 +8,9 @@ public class Note {
     private String companyName;
     private String address;
     private Date recordingTime;
-    private URL logoURL;
+    private String logoURL;
 
-    public Note(String companyName, String address, Date recordingTime, URL logoURL){
+    public Note(String companyName, String address, Date recordingTime, String logoURL){
         this.companyName = companyName;
         this.address = address;
         this.recordingTime = recordingTime;
@@ -33,7 +33,7 @@ public class Note {
         return recordingTime.toString();
     }
 
-    public URL getLogoURL() {
+    public String getLogoURL() {
         return logoURL;
     }
 }

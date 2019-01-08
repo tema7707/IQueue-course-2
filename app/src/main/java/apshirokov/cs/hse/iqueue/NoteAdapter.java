@@ -47,7 +47,7 @@ public class NoteAdapter extends ArrayAdapter<Note> {
         Note note = notes.get(position);
 
         Picasso.get()
-                .load(R.drawable.cafe)
+                .load(note.getLogoURL())
                 .error(R.drawable.logo)
                 .into(logoView);
 
