@@ -4,8 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -34,6 +37,17 @@ public class BranchListElementAdapter extends ArrayAdapter<BranchListElement>{
 
         addressText.setText(element.getAddress());
         timeText.setText(element.getTime());
+
+        // Set Listeners
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String adress = ((TextView) v.findViewById(R.id.branchElementAddress)).getText().toString();
+                String time = ((TextView) v.findViewById(R.id.branchElementTime)).getText().toString();
+                MainViewer.singleMainViewr().loadFragment(BranchFragment.newInstance(adress, time));
+            }
+        };
+        view.findViewById(R.id.formBranchListElement).setOnClickListener(clickListener);
 
         return view;
     }
