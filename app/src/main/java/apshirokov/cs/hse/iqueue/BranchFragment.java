@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class BranchFragment extends Fragment {
@@ -31,6 +32,15 @@ public class BranchFragment extends Fragment {
 
         ((TextView) view.findViewById(R.id.branchFragmentAddress)).setText(address);
         ((TextView) view.findViewById(R.id.branchFragmentTime)).setText(time);
+
+        // Кнопка
+        Button getIn = view.findViewById(R.id.getIn);
+        getIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainViewer.singleMainViewr().loadFragment(MyNotesFragment.newInstance());
+            }
+        });
 
         return view;
     }
