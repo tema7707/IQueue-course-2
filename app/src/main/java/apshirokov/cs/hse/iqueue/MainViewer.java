@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.mapbox.mapboxsdk.Mapbox;
+
 
 public class MainViewer extends AppCompatActivity {
 
@@ -57,7 +57,7 @@ public class MainViewer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_viewer);
 
-        singleMainViewer = this;
+        singleMainViewer = singleMainViewer == null ? this : singleMainViewer;
         title = findViewById(R.id.title);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

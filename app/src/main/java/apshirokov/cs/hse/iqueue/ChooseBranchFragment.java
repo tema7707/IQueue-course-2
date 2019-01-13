@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.maps.MapView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class ChooseBranchFragment extends Fragment {
     private List<BranchListElement> elements = new ArrayList();
     ListView elementsList;
     // MapBox
-    private MapView mapView;
+
 
     public ChooseBranchFragment() { }
 
@@ -30,7 +29,7 @@ public class ChooseBranchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Mapbox.getInstance(getContext(), getString(R.string.map_box_token));
+
         final View view = inflater.inflate(R.layout.fragment_choose_branch, container, false);
         // начальная инициализация списка
         setInitialData();
@@ -43,8 +42,6 @@ public class ChooseBranchFragment extends Fragment {
         elementsList.setAdapter(branchAdapter);
 
         // Карта
-        mapView = view.findViewById(R.id.mapChooseBranch);
-        mapView.onCreate(savedInstanceState);
 
         return view;
     }
