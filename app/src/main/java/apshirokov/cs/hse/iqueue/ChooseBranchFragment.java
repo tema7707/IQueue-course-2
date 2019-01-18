@@ -1,6 +1,7 @@
 package apshirokov.cs.hse.iqueue;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.OnEngineInitListener;
+import com.here.android.mpa.common.PositioningManager;
 import com.here.android.mpa.mapping.Map;
 import com.here.android.mpa.mapping.MapMarker;
 import com.here.android.mpa.mapping.SupportMapFragment;
@@ -23,6 +25,7 @@ public class ChooseBranchFragment extends Fragment {
     private List<BranchListElement> elements = new ArrayList();
     ListView elementsList;
 
+    private MapFragmentView mapFrafmentView;
     // map embedded in the map fragment
     private Map map = null;
     // map fragment embedded in this activity
@@ -53,25 +56,10 @@ public class ChooseBranchFragment extends Fragment {
         // Карта
 
         // Search for the map fragment to finish setup by calling init().
+
+
         mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.mapfragment);
-        mapFragment.init(new OnEngineInitListener() {
-            @Override
-            public void onEngineInitializationCompleted(OnEngineInitListener.Error error) {
-                if (error == OnEngineInitListener.Error.NONE) {
-                    // retrieve a reference of the map from the map fragment
-                    map = mapFragment.getMap();
-                    // Set the map center to the Vancouver region (no animation)
-                    map.setCenter(new GeoCoordinate(55.75222, 37.61556, 0.0),
-                            Map.Animation.NONE);
-                    // Set the zoom level to the average between min and max
-                    map.setZoomLevel(15.5);
-                } else {
-                    System.out.println("ERROR: Cannot initialize Map Fragment");
-                    Log.i("IQueue", error.toString());
-                    Log.i("IQueue", error.getDetails());
-                }
-            }
-        });
+        mapFrafmentView = new MapFragmentView(mapFragment, MainViewer.singleMainViewr());
 
         return view;
     }
