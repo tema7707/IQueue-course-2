@@ -1,1 +1,1 @@
-include ':app', ':picasso', ':HERE-sdk'
+include ':app', ':picasso', ':HERE-sdk', ':android-async-http-1.4.9'
