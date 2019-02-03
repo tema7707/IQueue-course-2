@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,6 +41,9 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+    private static String login;
+
+    static String getLogin(){ return login; }
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -308,26 +312,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
             try {
+                String request = String.format("http://192.168.2.64:8080/login?login=%s&password=%s", mEmail, mPassword);
+                boolean Success = new HttpClient().request(request).equals("true");
                 // Simulate network access.
                 Thread.sleep(2000);
-                Intent intent = new Intent(LoginActivity.this, MainViewer.class);
-                startActivity(intent);
+                if (Success) {
+                    login = mEmail;
+                    Intent intent = new Intent(LoginActivity.this, MainViewer.class);
+                    startActivity(intent);
+                }
+                return Success;
             } catch (InterruptedException e) {
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
             // TODO: register the new account here.
-            return true;
+
         }
 
         @Override

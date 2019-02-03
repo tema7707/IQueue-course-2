@@ -1,5 +1,6 @@
 package apshirokov.cs.hse.iqueue;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,6 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,6 +28,7 @@ public class MyNotesFragment extends Fragment {
 
     private List<Note> notes = new ArrayList();
     ListView notesList;
+    private View currentView;
     public MyNotesFragment() { }
 
     public static MyNotesFragment newInstance() {
@@ -29,21 +39,44 @@ public class MyNotesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_my_notes, container, false);
+        currentView = view;
         // начальная инициализация списка
-        setInitialData();
-        // получаем элемент ListView
-        notesList = view.findViewById(R.id.notesList);
-        // создаем адаптер
-        NoteAdapter noteAdapter = new NoteAdapter(view.getContext(), R.layout.form_note, notes);
-        // устанавливаем адаптер
-        notesList.setAdapter(noteAdapter);
+        new Initializer().execute(LoginActivity.getLogin());
         return view;
     }
 
-    private void setInitialData(){
-        //TODO:: переделать для сервера
-        notes.add(new Note("Sberbank", "420 Paper St", new Date(), getString(R.string.sberbankLogoLink)));
-        notes.add(new Note("Hookah Place", "420 Paper St", new Date(), getString(R.string.hookahplaceLogoLink)));
-        notes.add(new Note("Cafe", "420 Paper St", new Date(), getString(R.string.cafeLogoLink)));
+    class Initializer extends AsyncTask<String, Integer, String> {
+        private void setInitialData(String login) {
+            //TODO:: переделать для сервера
+            try {
+                String request = String.format("http://192.168.2.64:8080/getnotes?login=@", login);
+                String answer = new HttpClient().request(request);
+                JSONArray notesJSON = new JSONArray(answer);
+                for (int i = 0; i < notesJSON.length(); i++)
+                    notes.add(new Gson().fromJson("{\"companyName\":\"Sberbank\",\"address\":\"St.One\",\"recordingTime\":\"1999-10-12T17:20:30.000+0000\",\"logoURL\":\"https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/sberbank.png\"}", Note.class));
+            } catch (JSONException e) {
+                Log.e("IQueue", e.getMessage());
+            }
+//        notes.add(new Note("Sberbank", "420 Paper St", new Date(), getString(R.string.sberbankLogoLink)));
+//        notes.add(new Note("Hookah Place", "420 Paper St", new Date(), getString(R.string.hookahplaceLogoLink)));
+//        notes.add(new Note("Cafe", "420 Paper St", new Date(), getString(R.string.cafeLogoLink)));
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            setInitialData(strings[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            // получаем элемент ListView
+            notesList = currentView.findViewById(R.id.notesList);
+            // создаем адаптер
+            NoteAdapter noteAdapter = new NoteAdapter(currentView.getContext(), R.layout.form_note, notes);
+            // устанавливаем адаптер
+            notesList.setAdapter(noteAdapter);
+        }
     }
 }
