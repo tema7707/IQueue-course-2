@@ -43,6 +43,9 @@ public class NoteAdapter extends ArrayAdapter<Note> {
         ImageView logoView = view.findViewById(R.id.noteLogo);
         TextView nameView = view.findViewById(R.id.noteCompanyName);
         TextView addressView = view.findViewById(R.id.noteAddress);
+        TextView noteDay = view.findViewById(R.id.noteDay);
+        TextView noteTime = view.findViewById(R.id.noteTime);
+
 
         Note note = notes.get(position);
 
@@ -53,6 +56,8 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 
         nameView.setText(note.getCompanyName());
         addressView.setText(note.getAddress());
+        noteDay.setText(note.getDay());
+        noteTime.setText(note.getTime());
 
         RelativeLayout formLayout = view.findViewById(R.id.noteForm);
 

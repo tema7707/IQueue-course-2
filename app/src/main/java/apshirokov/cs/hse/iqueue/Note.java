@@ -5,6 +5,7 @@ package apshirokov.cs.hse.iqueue;
 import com.google.gson.annotations.SerializedName;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Note {
@@ -46,11 +47,17 @@ public class Note {
         return logoURL;
     }
 
-    public void setCompanyName(String companyName) { this.companyName = companyName; }
+    public String getDay(){
+        SimpleDateFormat sdfr = new SimpleDateFormat("dd MMM");
+        String dateString = null;
+        dateString = sdfr.format(recordingTime);
+        return dateString;
+    }
 
-    public void setAddress(String address) { this.address = address; }
-
-    public void setLogoURL(String logoURL) { this.logoURL = logoURL; }
-
-    public void setRecordingTime(Date recordingTime) { this.recordingTime = recordingTime; }
+    public String getTime(){
+        SimpleDateFormat sdfr = new SimpleDateFormat("HH:MM");
+        String dateString = null;
+        dateString = sdfr.format(recordingTime);
+        return dateString;
+    }
 }

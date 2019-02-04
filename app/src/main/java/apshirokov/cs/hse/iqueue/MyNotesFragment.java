@@ -53,13 +53,10 @@ public class MyNotesFragment extends Fragment {
                 String answer = new HttpClient().request(request);
                 JSONArray notesJSON = new JSONArray(answer);
                 for (int i = 0; i < notesJSON.length(); i++)
-                    notes.add(new Gson().fromJson("{\"companyName\":\"Sberbank\",\"address\":\"St.One\",\"recordingTime\":\"1999-10-12T17:20:30.000+0000\",\"logoURL\":\"https://raw.githubusercontent.com/tema7707/IQueueCourse2/master/app/src/main/res/drawable/sberbank.png\"}", Note.class));
+                    notes.add(new Gson().fromJson(notesJSON.getJSONObject(i).toString(), Note.class));
             } catch (JSONException e) {
                 Log.e("IQueue", e.getMessage());
             }
-//        notes.add(new Note("Sberbank", "420 Paper St", new Date(), getString(R.string.sberbankLogoLink)));
-//        notes.add(new Note("Hookah Place", "420 Paper St", new Date(), getString(R.string.hookahplaceLogoLink)));
-//        notes.add(new Note("Cafe", "420 Paper St", new Date(), getString(R.string.cafeLogoLink)));
         }
 
         @Override
