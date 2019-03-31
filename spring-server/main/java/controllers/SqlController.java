@@ -108,11 +108,9 @@ public class SqlController {
             stmt = con.createStatement();
             String query = String.format("INSERT INTO Notes(company, logo, address, owner, time)\n" +
                     "VALUES ('%s', '%s', '%s', '%s', '%5$tY-%5$tm-%5$tdT%5$tH:%5$tM:%5$tS')", company, logo, address, login, time);
-            System.out.println(query);
             stmt.executeUpdate(query);
             return true;
         } catch (SQLException ex) {
-            // Обработка исключений
             System.out.println(ex.getMessage());
             System.out.println(ex.toString());
         }

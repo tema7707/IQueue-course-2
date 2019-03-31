@@ -59,7 +59,6 @@ public class HttpClient {
 
             urlConnection.disconnect();
         }
-        Log.i("IQueue", "ans:Error!!");
         return "Error";
     }
 }
