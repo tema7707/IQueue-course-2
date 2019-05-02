@@ -74,6 +74,86 @@
                 android:orientation="horizontal"></LinearLayout>
 
             <EditText
+                android:id="@+id/name"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorMyWhite"
+                android:hint="Full Name"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="none|text"
+                android:maxLines="1"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:textColorLink="@color/colorMyBlack" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"></LinearLayout>
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorMyWhite"
+                android:hint="City"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:textColorLink="@color/colorMyBlack" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"></LinearLayout>
+
+            <EditText
+                android:id="@+id/sex"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorMyWhite"
+                android:hint="Sex"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:textColorLink="@color/colorMyBlack" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"></LinearLayout>
+
+            <EditText
+                android:id="@+id/age"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorMyWhite"
+                android:hint="Age"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:textColorLink="@color/colorMyBlack" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"></LinearLayout>
+
+            <EditText
                 android:id="@+id/password"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
@@ -88,6 +168,7 @@
                 android:singleLine="true"
                 android:textColorLink="@color/colorMyBlack" />
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
@@ -100,21 +181,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorMyBlue"
-                android:backgroundTint="@color/colorMyBlue"
-                android:text="SIngn in"
+                android:background="@color/colorAccent"
+                android:backgroundTint="@color/colorAccent"
+                android:text="Registration"
                 android:textColor="@android:color/background_light"
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/login_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="262dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorAccent"
-                android:text="Registration"
+                android:background="@color/colorMyBlue"
+                android:text="Sing in"
                 android:textColor="@android:color/background_light"
                 android:textSize="12sp"
                 android:textStyle="bold" />

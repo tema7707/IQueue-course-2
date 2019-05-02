@@ -60,30 +60,24 @@ public class ChooseCompanyAdapter extends ArrayAdapter<ChooseCompany> {
         nameView2.setText(company.getCompanyName2());
 
         // Set Listeners
-        View.OnClickListener clickListener1 = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    LinearLayout buttonsLayout = v.findViewById(R.id.companyChoose1);
-                    // Анимация нажатия
-                    Animation animationB = AnimationUtils.loadAnimation(v.getContext(), R.anim.anim_press);
-                    animationB.setInterpolator(INTERPOLATOR);
-                    animationB.setAnimationListener(new AnimListener(company, 1));
-                    buttonsLayout.startAnimation(animationB);
-            }
+        View.OnClickListener clickListener1 = v -> {
+                LinearLayout buttonsLayout = v.findViewById(R.id.companyChoose1);
+                // Анимация нажатия
+                Animation animationB = AnimationUtils.loadAnimation(v.getContext(), R.anim.anim_press);
+                animationB.setInterpolator(INTERPOLATOR);
+                animationB.setAnimationListener(new AnimListener(company, 1));
+                buttonsLayout.startAnimation(animationB);
         };
         view.findViewById(R.id.companyChoose1).setOnClickListener(clickListener1);
 
         // Set Listeners
-        View.OnClickListener clickListener2 = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinearLayout buttonsLayout = v.findViewById(R.id.companyChoose2);
-                // Анимация нажатия
-                Animation animationB = AnimationUtils.loadAnimation(v.getContext(), R.anim.anim_press);
-                animationB.setInterpolator(INTERPOLATOR);
-                animationB.setAnimationListener(new AnimListener(company, 2));
-                buttonsLayout.startAnimation(animationB);
-            }
+        View.OnClickListener clickListener2 = v -> {
+            LinearLayout buttonsLayout = v.findViewById(R.id.companyChoose2);
+            // Анимация нажатия
+            Animation animationB = AnimationUtils.loadAnimation(v.getContext(), R.anim.anim_press);
+            animationB.setInterpolator(INTERPOLATOR);
+            animationB.setAnimationListener(new AnimListener(company, 2));
+            buttonsLayout.startAnimation(animationB);
         };
         view.findViewById(R.id.companyChoose2).setOnClickListener(clickListener2);
 
@@ -113,6 +107,7 @@ public class ChooseCompanyAdapter extends ArrayAdapter<ChooseCompany> {
                     .load(number == 1 ? company.getLogoURL1() : company.getLogoURL2())
                     .error(R.drawable.logo)
                     .into(titleLogo);
+            MainViewer.setCompanyURL(number == 1 ? company.getLogoURL1() : company.getLogoURL2());
         }
 
         @Override

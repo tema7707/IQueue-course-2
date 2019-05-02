@@ -49,7 +49,7 @@ public class MyNotesFragment extends Fragment {
         private void setInitialData(String login) {
             //TODO:: переделать для сервера
             try {
-                String request = String.format("http://192.168.2.64:8080/getnotes?login=%s", login);
+                String request = String.format("http://192.168.43.137:8080/getnotes?login=%s", login);
                 String answer = new HttpClient().request(request);
                 JSONArray notesJSON = new JSONArray(answer);
                 for (int i = 0; i < notesJSON.length(); i++)

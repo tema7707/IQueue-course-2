@@ -87,12 +87,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(view -> attemptLogin());
+
+        Button mRegistrationButton = findViewById(R.id.registration_button);
+        mRegistrationButton.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+            startActivity(intent);
         });
 
         mLoginFormView = findViewById(R.id.login_form);
@@ -313,7 +314,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
             try {
-                String request = String.format("http://192.168.2.64:8080/login?login=%s&password=%s", mEmail, mPassword);
+                String request = String.format("http://192.168.43.137:8080/login?login=%s&password=%s", mEmail, mPassword);
                 boolean Success = new HttpClient().request(request).equals("true");
                 // Simulate network access.
                 Thread.sleep(2000);

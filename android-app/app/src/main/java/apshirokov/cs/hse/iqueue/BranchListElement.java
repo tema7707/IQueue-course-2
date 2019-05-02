@@ -19,8 +19,7 @@ public class BranchListElement {
     public String getTime()
     {
         SimpleDateFormat sdfr = new SimpleDateFormat("HH:MM");
-        String timeString = null;
-        timeString = sdfr.format(time);
+        String timeString = sdfr.format(time);
         return timeString;
     }
 
