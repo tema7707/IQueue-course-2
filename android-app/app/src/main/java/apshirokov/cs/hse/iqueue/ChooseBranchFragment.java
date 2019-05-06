@@ -56,7 +56,7 @@ public class ChooseBranchFragment extends Fragment {
         // Карта
         // Search for the map fragment to finish setup by calling init().
         mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.mapfragment);
-        mapFrafmentView = new MapFragmentView(mapFragment, MainViewer.singleMainViewr());
+        mapFrafmentView = new MapFragmentView(mapFragment, MainViewer.singleMainViewr(), 7);
 
         return view;
     }
@@ -64,11 +64,13 @@ public class ChooseBranchFragment extends Fragment {
     class Initializer extends AsyncTask<String, Integer, String> {
         private void setInitialData(String company) {
             try {
-                String request = String.format("http://192.168.43.137:8080/branches?company=%s", company);
+                String request = String.format("http://192.168.2.64:8080/branches?company=%s", company);
                 String answer = new HttpClient().request(request);
                 JSONArray notesJSON = new JSONArray(answer);
-                for (int i = 0; i < notesJSON.length(); i++)
+                for (int i = 0; i < notesJSON.length(); i++) {
                     elements.add(new Gson().fromJson(notesJSON.getJSONObject(i).toString(), BranchListElement.class));
+                    mapFrafmentView.createMapMarker(elements.get(i).getLongitude(), elements.get(i).getLatitude());
+                }
             } catch (JSONException e) {
                 Log.e("IQueue", e.getMessage());
             }
@@ -90,7 +92,6 @@ public class ChooseBranchFragment extends Fragment {
                     R.layout.form_branch_list_element, elements);
             // устанавливаем адаптер
             elementsList.setAdapter(branchAdapter);
-
         }
     }
 }

@@ -52,9 +52,8 @@ public class ChooseCompanyFragment extends Fragment {
 
     class Initializer extends AsyncTask<String, Integer, String> {
         private void setInitialData() {
-            //TODO:: переделать для сервера
             try {
-                String request = String.format("http://192.168.43.137:8080/companies");
+                String request = String.format("http://192.168.2.64:8080/companies");
                 String answer = new HttpClient().request(request);
                 JSONArray companiesJSON = new JSONArray(answer);
                 Company first = null, second = null;

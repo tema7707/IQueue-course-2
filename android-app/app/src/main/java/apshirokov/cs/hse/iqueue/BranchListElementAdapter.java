@@ -36,16 +36,12 @@ public class BranchListElementAdapter extends ArrayAdapter<BranchListElement>{
         BranchListElement element = elements.get(position);
 
         addressText.setText(element.getAddress());
-        timeText.setText(element.getTime());
+        timeText.setText(element.getAverage());
 
         // Set Listeners
-        View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String adress = ((TextView) v.findViewById(R.id.branchElementAddress)).getText().toString();
-                String time = ((TextView) v.findViewById(R.id.branchElementTime)).getText().toString();
-                MainViewer.singleMainViewr().loadFragment(BranchFragment.newInstance(adress, time));
-            }
+        View.OnClickListener clickListener = v -> {
+            MainViewer.singleMainViewr().loadFragment(BranchFragment.newInstance(element.getAddress(),
+                    element.getAverage(), element.getLongitude(), element.getLatitude()));
         };
         view.findViewById(R.id.formBranchListElement).setOnClickListener(clickListener);
 

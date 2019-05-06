@@ -41,9 +41,10 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
-    private static String login;
+    private static String login, password;
 
     static String getLogin(){ return login; }
+    static String getPassword(){ return password; }
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -312,14 +313,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
             try {
-                String request = String.format("http://192.168.43.137:8080/login?login=%s&password=%s", mEmail, mPassword);
+                String request = String.format("http://192.168.2.64:8080/login?login=%s&password=%s", mEmail, mPassword);
                 boolean Success = new HttpClient().request(request).equals("true");
                 // Simulate network access.
                 Thread.sleep(2000);
                 if (Success) {
                     login = mEmail;
+                    password = mPassword;
                     Intent intent = new Intent(LoginActivity.this, MainViewer.class);
                     startActivity(intent);
                 }
@@ -327,9 +328,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } catch (InterruptedException e) {
                 return false;
             }
-
-            // TODO: register the new account here.
-
         }
 
         @Override

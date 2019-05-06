@@ -48,8 +48,9 @@ public class MainViewer extends AppCompatActivity {
                     loadFragment(ChooseCompanyFragment.newInstance());
                     title.setText("Add New Note");
                     return true;
-                case R.id.settings:
-                    loadFragment(MyNotesFragment.newInstance());
+                case R.id.profile:
+                    loadFragment(ProfileFragment.newInstance());
+                    title.setText("My profile");
                     return true;
             }
             return false;

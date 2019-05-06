@@ -2,11 +2,13 @@ package apshirokov.cs.hse.iqueue;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.Image;
 import com.here.android.mpa.common.OnEngineInitListener;
 import com.here.android.mpa.common.PositioningManager;
@@ -16,17 +18,21 @@ import com.here.android.mpa.mapping.SupportMapFragment;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MapFragmentView {
+    private PositioningManager posManager;
     private SupportMapFragment m_mapFragment;
+    private List<MapMarker> markersQueue = new ArrayList<>();
     private Map m_map;
-    private MapMarker m_map_marker;
     private AppCompatActivity m_activity;
+    private int zoom;
 
-
-    public MapFragmentView(SupportMapFragment m_mapFragment, AppCompatActivity activity) {
+    public MapFragmentView(SupportMapFragment m_mapFragment, AppCompatActivity activity, int zoom) {
         this.m_mapFragment = m_mapFragment;
+        this.zoom = zoom;
         m_activity = activity;
         initMapFragment();
     }
@@ -47,37 +53,58 @@ public class MapFragmentView {
 
         if (m_mapFragment != null) {
             /* Initialize the SupportMapFragment, results will be given via the called back. */
-            m_mapFragment.init(new OnEngineInitListener() {
-                @Override
-                public void onEngineInitializationCompleted(OnEngineInitListener.Error error) {
+            m_mapFragment.init(error -> {
 
-                    if (error == Error.NONE) {
-                        /*
-                         * If no error returned from map fragment initialization, the map will be
-                         * rendered on screen at this moment.Further actions on map can be provided
-                         * by calling Map APIs.
-                         */
-                        m_map = m_mapFragment.getMap();
+                if (error == OnEngineInitListener.Error.NONE) {
+                    /*
+                     * If no error returned from map fragment initialization, the map will be
+                     * rendered on screen at this moment.Further actions on map can be provided
+                     * by calling Map APIs.
+                     */
+                    m_map = m_mapFragment.getMap();
+                    m_map.setCenter(new GeoCoordinate(55.751244, 37.618423), Map.Animation.LINEAR);
 
-                        createMapMarker();
+                    for (int i = 0; i < markersQueue.size(); i++)
+                        m_map.addMapObject(markersQueue.get(i));
 
-                        //PositioningManager posManager = PositioningManager.getInstance();
-                        //posManager.start(PositioningManager.LocationMethod.GPS_NETWORK);
-                        //m_map.setCenter(posManager.getPosition().getCoordinate(), Map.Animation.NONE);
-
-                        // Display position indicator
-                        m_map.getPositionIndicator().setVisible(true);
+                    if (posManager == null) {
+                        this.posManager = PositioningManager.getInstance();
+                        posManager.start(PositioningManager.LocationMethod.GPS_NETWORK);
                     }
+
+                    // Display position indicator
+                    m_map.getPositionIndicator().setVisible(true);
+
+                    m_map.setZoomLevel(zoom, Map.Animation.LINEAR);
+
+                    while (posManager.getLastKnownPosition() == null) {}
+                    m_map.setCenter(posManager.getLastKnownPosition().getCoordinate(), Map.Animation.LINEAR);
                 }
             });
         }
     }
 
+    public float getDist(double latitude, double longitude) {
+        if (posManager == null) {
+            this.posManager = PositioningManager.getInstance();
+            posManager.start(PositioningManager.LocationMethod.GPS_NETWORK);
+        }
+        while (posManager.getLastKnownPosition() == null) {}
+        Location locationA = new Location("point A");
+        locationA.setLatitude(latitude);
+        locationA.setLongitude(longitude);
+
+        Location locationB = new Location("point B");
+        locationB.setLatitude(posManager.getLastKnownPosition().getLatitudeAccuracy());
+        locationB.setLongitude(posManager.getLastKnownPosition().getLongitudeAccuracy());
+
+        return locationA.distanceTo(locationB);
+    }
 
     /**
      * create a MapMarker and add the MapMarker to active map view.
      */
-    public void createMapMarker() {
+    public void createMapMarker(double x, double y) {
         // create an image from cafe.png.
         Image marker_img = new Image();
         try {
@@ -86,8 +113,11 @@ public class MapFragmentView {
             e.printStackTrace();
         }
         // create a MapMarker centered at current location with png image.
-        m_map_marker = new MapMarker(m_map.getCenter(), marker_img);
+        MapMarker m_map_marker = new MapMarker(new GeoCoordinate(x, y), marker_img);
         // add a MapMarker to current active map.
-        m_map.addMapObject(m_map_marker);
+        if (m_map != null)
+            m_map.addMapObject(m_map_marker);
+        else
+            markersQueue.add(m_map_marker);
     }
 }

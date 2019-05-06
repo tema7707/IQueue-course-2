@@ -114,7 +114,7 @@
             tools:layout_editor_absoluteX="31dp">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/button_edit"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/form_button_edit"
@@ -125,7 +125,7 @@
 
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/button_info"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -136,7 +136,7 @@
                 android:visibility="visible" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/button_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

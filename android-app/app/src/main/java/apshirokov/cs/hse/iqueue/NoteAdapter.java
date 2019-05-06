@@ -1,6 +1,7 @@
 package apshirokov.cs.hse.iqueue;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,17 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 import com.squareup.picasso.*;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.List;
 
@@ -45,7 +52,7 @@ public class NoteAdapter extends ArrayAdapter<Note> {
         TextView addressView = view.findViewById(R.id.noteAddress);
         TextView noteDay = view.findViewById(R.id.noteDay);
         TextView noteTime = view.findViewById(R.id.noteTime);
-
+        Button deleteButton = view.findViewById(R.id.button_delete);
 
         Note note = notes.get(position);
 
@@ -61,21 +68,23 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 
         RelativeLayout formLayout = view.findViewById(R.id.noteForm);
 
-        View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // создаем анимацию
-                LinearLayout buttonsLayout = v.findViewById(R.id.noteButtonsLayout);
-                RelativeLayout formLayout = v.findViewById(R.id.noteForm);
-                // Анимация кнопок
-                Animation animationB = AnimationUtils.loadAnimation(v.getContext(), R.anim.anim_open_notes_buttons);
-                animationB.setInterpolator(INTERPOLATOR);
-                animationB.setAnimationListener(new AnimListener(buttonsLayout, false));
-                buttonsLayout.startAnimation(animationB);
+        deleteButton.setOnClickListener(v -> {
+            new Deleter().execute(""+note.getId());
+            this.remove(note);
+        });
 
-                AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
-                formLayout.setLayoutParams(lp);
-            }
+        View.OnClickListener clickListener = v -> {
+            // создаем анимацию
+            LinearLayout buttonsLayout = v.findViewById(R.id.noteButtonsLayout);
+            RelativeLayout formLayout1 = v.findViewById(R.id.noteForm);
+            // Анимация кнопок
+            Animation animationB = AnimationUtils.loadAnimation(v.getContext(), R.anim.anim_open_notes_buttons);
+            animationB.setInterpolator(INTERPOLATOR);
+            animationB.setAnimationListener(new AnimListener(buttonsLayout, false));
+            buttonsLayout.startAnimation(animationB);
+
+            AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
+            formLayout1.setLayoutParams(lp);
         };
         formLayout.setOnClickListener(clickListener);
 
@@ -102,6 +111,19 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 
         @Override
         public void onAnimationRepeat(Animation animation) { }
+    }
+
+    class Deleter extends AsyncTask<String, Integer, String> {
+        private void deleteNote(String id) {
+            String request = String.format("http://192.168.2.64:8080/deletenote?id=%s", id);
+            new HttpClient().request(request);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            deleteNote(strings[0]);
+            return null;
+        }
     }
 }
 

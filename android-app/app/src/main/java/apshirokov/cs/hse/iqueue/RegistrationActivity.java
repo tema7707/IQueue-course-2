@@ -25,10 +25,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -63,14 +65,16 @@ public class RegistrationActivity extends AppCompatActivity implements LoaderCal
 
     // UI references.
     private AutoCompleteTextView mEmailView;
-    private EditText mSexView;
+    private Spinner mSexView;
     private EditText mAgeView;
-    private EditText mCityView;
+    private Spinner mCityView;
     private EditText mNameView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
 
+    String[] sexList = {"Male", "Female"};
+    String[] cityList = {"Moscow", "Odintsovo", "Korolev", "Mitishy", "Krasnogorsk", "Himki"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +96,14 @@ public class RegistrationActivity extends AppCompatActivity implements LoaderCal
         mSexView = findViewById(R.id.sex);
         mAgeView = findViewById(R.id.age);
         mCityView = findViewById(R.id.city);
+
+        ArrayAdapter<String> sexAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sexList);
+        sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSexView.setAdapter(sexAdapter);
+
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cityList);
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCityView.setAdapter(cityAdapter);
 
         Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(view -> attemptLogin());
@@ -169,8 +181,8 @@ public class RegistrationActivity extends AppCompatActivity implements LoaderCal
         String password = mPasswordView.getText().toString();
         String name = mNameView.getText().toString();
         Integer age = Integer.parseInt(mAgeView.getText().toString());
-        Boolean sex = mSexView.getText().toString() == "Male";
-        String city = mCityView.getText().toString();
+        Boolean sex = mSexView.getSelectedItem().toString() == "Male";
+        String city = mCityView.getSelectedItem().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -332,7 +344,7 @@ public class RegistrationActivity extends AppCompatActivity implements LoaderCal
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
             try {
-                String request = String.format("http://192.168.43.137:8080/registration?login=%s&password=%s" +
+                String request = String.format("http://192.168.2.64:8080/registration?login=%s&password=%s" +
                         "&name=%s&sex=%s&city=%s&age=%s", mEmail, mPassword, mName, mSex, mCity, mAge);
                 boolean Success = new HttpClient().request(request).equals("true");
                 // Simulate network access.
