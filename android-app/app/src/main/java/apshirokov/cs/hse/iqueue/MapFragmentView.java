@@ -23,6 +23,7 @@ import java.util.List;
 
 
 public class MapFragmentView {
+    private static double myLatitude, myLongitude;
     private PositioningManager posManager;
     private SupportMapFragment m_mapFragment;
     private List<MapMarker> markersQueue = new ArrayList<>();
@@ -78,27 +79,29 @@ public class MapFragmentView {
                     m_map.setZoomLevel(zoom, Map.Animation.LINEAR);
 
                     while (posManager.getLastKnownPosition() == null) {}
+                    myLatitude = posManager.getLastKnownPosition().getCoordinate().getLatitude();
+                    myLongitude = posManager.getLastKnownPosition().getCoordinate().getLongitude();
                     m_map.setCenter(posManager.getLastKnownPosition().getCoordinate(), Map.Animation.LINEAR);
                 }
             });
         }
     }
 
-    public float getDist(double latitude, double longitude) {
+    public float getDist(double longitude, double latitude) {
         if (posManager == null) {
             this.posManager = PositioningManager.getInstance();
             posManager.start(PositioningManager.LocationMethod.GPS_NETWORK);
         }
-        while (posManager.getLastKnownPosition() == null) {}
         Location locationA = new Location("point A");
         locationA.setLatitude(latitude);
         locationA.setLongitude(longitude);
 
         Location locationB = new Location("point B");
-        locationB.setLatitude(posManager.getLastKnownPosition().getLatitudeAccuracy());
-        locationB.setLongitude(posManager.getLastKnownPosition().getLongitudeAccuracy());
 
-        return locationA.distanceTo(locationB);
+        locationB.setLatitude(myLatitude);
+        locationB.setLongitude(myLongitude);
+
+        return Math.round(locationA.distanceTo(locationB));
     }
 
     /**

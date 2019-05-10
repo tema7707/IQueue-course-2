@@ -102,7 +102,7 @@ public class BranchFragment extends Fragment {
         mapFrafmentView.createMapMarker(longitude, latitude);
 
         ((TextView) view.findViewById(R.id.branchFragmentDist)).setText(
-                "" + mapFrafmentView.getDist(latitude, longitude) + " m"
+                "" + mapFrafmentView.getDist(latitude, longitude) + " meters"
         );
 
         return view;

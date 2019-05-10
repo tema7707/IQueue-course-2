@@ -45,6 +45,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     static String getLogin(){ return login; }
     static String getPassword(){ return password; }
+    static void setLogin(String login){ LoginActivity.login =  login; }
+    static void setPassword(String password){ LoginActivity.password = password; }
     /**
      * Id to identity READ_CONTACTS permission request.
      */

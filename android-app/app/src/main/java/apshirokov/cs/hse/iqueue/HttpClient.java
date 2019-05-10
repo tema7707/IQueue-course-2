@@ -10,7 +10,6 @@ import java.net.URL;
 
 public class HttpClient {
 
-    // Sorry
     public String request(String uri){
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -29,21 +28,6 @@ public class HttpClient {
             String ans = buf.toString().substring(0, buf.toString().length() - 1);
             Log.i("IQueue", "ans:" + ans);
             return ans;
-
-//            try {
-//                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-//                BufferedReader bin = new BufferedReader(new InputStreamReader(in));
-//                // temporary string to hold each line read from the reader.
-//                String inputLine;
-//                while ((inputLine = bin.readLine()) != null) {
-//                    sb.append(inputLine);
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } finally {
-//                // regardless of success or failure, we will disconnect from the URLConnection.
-//                urlConnection.disconnect();
-//            }
         }
         catch (IOException ex) {
             Log.e("IQueue", ex.getMessage());

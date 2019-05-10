@@ -42,10 +42,6 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class RegistrationActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
-
-    private static String login;
-
-    static String getLogin(){ return login; }
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -350,7 +346,8 @@ public class RegistrationActivity extends AppCompatActivity implements LoaderCal
                 // Simulate network access.
                 Thread.sleep(2000);
                 if (Success) {
-                    login = mEmail;
+                    LoginActivity.setLogin(mEmail);
+                    LoginActivity.setPassword(mPassword);
                     Intent intent = new Intent(RegistrationActivity.this, MainViewer.class);
                     startActivity(intent);
                 }
